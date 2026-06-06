@@ -1,6 +1,11 @@
+from pathlib import Path
+
 import joblib
 
-model = joblib.load("models/disease_model.pkl")
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_PATH = BASE_DIR / "models" / "disease_model.pkl"
+
+model = joblib.load(MODEL_PATH)
 
 while True:
     symptom = input("\nDescribe symptoms (or type exit): ")

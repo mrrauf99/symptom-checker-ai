@@ -3,7 +3,7 @@ from fastapi import APIRouter
 from backend.schemas.prediction import PredictionRequest
 from backend.services.predictor import predict_disease
 from backend.services.history_service import save_prediction
-from backend.database.mongodb import predictions_collection
+from backend.database.collections import predictions_collection
 
 router = APIRouter()
 

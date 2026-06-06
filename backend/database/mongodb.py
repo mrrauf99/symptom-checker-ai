@@ -8,5 +8,3 @@ from backend.config.settings import (
 client = MongoClient(MONGODB_URI)
 
 db = client[DATABASE_NAME]
-
-predictions_collection = db["predictions"]

@@ -1,8 +1,6 @@
 from datetime import datetime
 
-from backend.database.mongodb import (
-    predictions_collection
-)
+from backend.database.collections import predictions_collection
 
 
 def save_prediction(

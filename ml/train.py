@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pandas as pd
 import joblib
 
@@ -7,8 +9,12 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_DIR = BASE_DIR / "models"
+MODEL_PATH = MODEL_DIR / "disease_model.pkl"
+
 # Load dataset
-df = pd.read_csv("data/Symptom2Disease.csv")
+df = pd.read_csv(BASE_DIR / "ml" / "data" / "Symptom2Disease.csv")
 
 X = df["text"]
 y = df["label"]
@@ -38,6 +44,7 @@ accuracy = accuracy_score(y_test, predictions)
 print(f"Accuracy: {accuracy:.4f}")
 
 # Save model
-joblib.dump(model, "models/disease_model.pkl")
+MODEL_DIR.mkdir(parents=True, exist_ok=True)
+joblib.dump(model, MODEL_PATH)
 
 print("Model saved successfully!")
