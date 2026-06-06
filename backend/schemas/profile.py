@@ -5,13 +5,23 @@ from typing import Optional
 class UpdateProfileRequest(BaseModel):
 
     name: str = Field(
+        ...,
         min_length=3,
-        max_length=100
+        max_length=100,
+        description="Full name of the user"
     )
 
-    age: Optional[int] = None
+    age: int | None = Field(
+        default=None,
+        ge=1,
+        le=120,
+        description="Age in years (1–120)"
+    )
 
-    gender: Optional[str] = None
+    gender: str | None = Field(
+        default=None,
+        description="Gender (optional)"
+    )
 
 
 class ProfileResponse(BaseModel):

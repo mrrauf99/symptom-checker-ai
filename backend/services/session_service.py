@@ -3,6 +3,7 @@ from datetime import datetime
 from backend.database.collections import (
     chat_sessions_collection
 )
+from backend.utils.logger import logger
 
 
 def create_session(
@@ -20,7 +21,13 @@ def create_session(
         session
     )
 
-    return str(result.inserted_id)
+    session_id = str(result.inserted_id)
+
+    logger.info(
+        f"Session created: {session_id} for user {user_id}"
+    )
+
+    return session_id
 
 
 def get_user_sessions(user_id):

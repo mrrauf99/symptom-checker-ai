@@ -1,5 +1,6 @@
 from pathlib import Path
 import joblib
+from backend.utils.logger import logger
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -28,6 +29,8 @@ def predict_disease(text: str):
         key=lambda x: x["confidence"],
         reverse=True
     )
+
+    logger.info(f"Prediction generated: {prediction}")
 
     return {
         "prediction": prediction,

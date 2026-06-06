@@ -23,7 +23,14 @@ router = APIRouter(
 )
 
 
-@router.get("/")
+@router.get(
+    "/",
+    summary="Get user profile",
+    description=(
+        "Returns the authenticated user's profile including "
+        "name, email, age, and gender."
+    )
+)
 def profile(
     current_user=Depends(
         get_current_user
@@ -44,7 +51,14 @@ def profile(
     return profile_data
 
 
-@router.put("/")
+@router.put(
+    "/",
+    summary="Update user profile",
+    description=(
+        "Updates the authenticated user's profile fields. "
+        "Name is required; age and gender are optional."
+    )
+)
 def update_user_profile(
     data: UpdateProfileRequest,
     current_user=Depends(

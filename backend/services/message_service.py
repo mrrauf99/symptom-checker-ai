@@ -3,6 +3,7 @@ from datetime import datetime
 from backend.database.collections import (
     messages_collection
 )
+from backend.utils.logger import logger
 
 
 def create_message(
@@ -22,7 +23,13 @@ def create_message(
         message
     )
 
-    return str(result.inserted_id)
+    message_id = str(result.inserted_id)
+
+    logger.info(
+        f"Message stored: session {session_id}, role {role}"
+    )
+
+    return message_id
 
 
 def get_session_messages(

@@ -24,7 +24,14 @@ router = APIRouter(
 )
 
 
-@router.post("/register")
+@router.post(
+    "/register",
+    summary="Register a new user",
+    description=(
+        "Creates a new user account with name, email, and password. "
+        "Returns a success message on completion."
+    )
+)
 def register(data: RegisterRequest):
 
     try:
@@ -43,7 +50,14 @@ def register(data: RegisterRequest):
         )
 
 
-@router.post("/login")
+@router.post(
+    "/login",
+    summary="Login user and generate JWT token",
+    description=(
+        "Authenticates user credentials and returns "
+        "a bearer access token for protected endpoints."
+    )
+)
 def login(data: LoginRequest):
 
     try:
@@ -61,7 +75,14 @@ def login(data: LoginRequest):
         )
 
 
-@router.get("/me")
+@router.get(
+    "/me",
+    summary="Get current authenticated user",
+    description=(
+        "Returns the JWT payload for the currently "
+        "authenticated user. Requires a valid bearer token."
+    )
+)
 def me(
     current_user=Depends(
         get_current_user

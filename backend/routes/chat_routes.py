@@ -16,7 +16,15 @@ router = APIRouter(
 )
 
 
-@router.post("/send")
+@router.post(
+    "/send",
+    summary="Send a chat message",
+    description=(
+        "Sends a message within a chat session. The system extracts "
+        "symptoms, runs disease prediction, recommends a specialist, "
+        "and stores both the user message and AI response."
+    )
+)
 def send_message(
     data: ChatRequest,
     current_user=Depends(get_current_user)

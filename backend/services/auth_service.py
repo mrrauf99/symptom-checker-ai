@@ -1,4 +1,5 @@
 from datetime import datetime
+from backend.utils.logger import logger
 
 from backend.database.collections import users_collection
 from backend.auth.password import (
@@ -31,6 +32,8 @@ def register_user(name, email, password):
 
     users_collection.insert_one(user)
 
+    logger.info(f"User registered: {email}")
+
     return {
         "message": "User registered successfully"
     }
@@ -43,6 +46,7 @@ def login_user(email, password):
     )
 
     if not user:
+        logger.warning(f"Invalid login attempt: {email}")
         raise Exception("Invalid credentials")
 
     is_valid = verify_password(
@@ -51,12 +55,15 @@ def login_user(email, password):
     )
 
     if not is_valid:
+        logger.warning(f"Invalid login attempt: {email}")
         raise Exception("Invalid credentials")
 
     token = create_access_token({
         "user_id": str(user["_id"]),
         "email": user["email"]
     })
+
+    logger.info(f"User logged in: {email}")
 
     return {
         "access_token": token,

@@ -8,7 +8,16 @@ from backend.database.collections import predictions_collection
 router = APIRouter()
 
 
-@router.post("/predict")
+@router.post(
+    "/predict",
+    summary="Predict disease from symptoms",
+    description=(
+        "Accepts a free-text symptom description and returns "
+        "the predicted disease with top confidence scores. "
+        "The result is saved to prediction history."
+    ),
+    tags=["Prediction"]
+)
 def predict(data: PredictionRequest):
 
     result = predict_disease(data.text)
@@ -26,7 +35,15 @@ def predict(data: PredictionRequest):
     }
 
 
-@router.get("/history")
+@router.get(
+    "/history",
+    summary="Get recent prediction history",
+    description=(
+        "Returns the 20 most recent disease predictions "
+        "stored in the database, sorted by newest first."
+    ),
+    tags=["History"]
+)
 def history():
 
     records = list(
@@ -41,10 +58,33 @@ def history():
     return records
 
 
-@router.get("/health")
+@router.get(
+    "/health",
+    summary="Health check",
+    description=(
+        "Returns the current health status of the API. "
+        "Use this endpoint for uptime monitoring and load balancer checks."
+    ),
+    tags=["Health"]
+)
 def health_check():
 
     return {
         "status": "healthy",
-        "service": "Healthcare Symptom Checker API"
+        "service": "Healthcare Symptom Checker API",
+        "version": "1.0.0"
+    }
+
+
+@router.get(
+    "/version",
+    summary="Get API version",
+    description="Returns the application name and current version number.",
+    tags=["Health"]
+)
+def version():
+
+    return {
+        "name": "Healthcare Symptom Checker",
+        "version": "1.0.0"
     }
