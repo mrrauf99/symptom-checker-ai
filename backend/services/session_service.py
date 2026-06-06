@@ -21,3 +21,16 @@ def create_session(
     )
 
     return str(result.inserted_id)
+
+
+def get_user_sessions(user_id):
+
+    sessions = list(
+        chat_sessions_collection.find(
+            {"user_id": user_id},
+            {"_id": 0}
+        )
+        .sort("created_at", -1)
+    )
+
+    return sessions

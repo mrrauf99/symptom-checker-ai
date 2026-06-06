@@ -1,15 +1,10 @@
-from fastapi import (
-    APIRouter,
-    Depends
-)
+from fastapi import APIRouter, Depends
 
 from backend.auth.dependencies import (
     get_current_user
 )
 
-from backend.schemas.message import (
-    MessageRequest
-)
+from backend.schemas.chat import ChatRequest
 
 from backend.services.chat_service import (
     process_chat_message
@@ -17,20 +12,17 @@ from backend.services.chat_service import (
 
 router = APIRouter(
     prefix="/chat",
-    tags=["AI Chat"]
+    tags=["Chat"]
 )
 
 
-@router.post("/")
-def chat(
-    data: MessageRequest,
-    current_user=Depends(
-        get_current_user
-    )
+@router.post("/send")
+def send_message(
+    data: ChatRequest,
+    current_user=Depends(get_current_user)
 ):
 
-    result = process_chat_message(
-        data.content
+    return process_chat_message(
+        session_id=data.session_id,
+        content=data.content
     )
-
-    return result

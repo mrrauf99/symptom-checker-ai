@@ -12,7 +12,8 @@ from backend.auth.dependencies import (
 )
 
 from backend.services.session_service import (
-    create_session
+    create_session,
+    get_user_sessions
 )
 
 router = APIRouter(
@@ -35,3 +36,13 @@ def create_chat_session(
     return {
         "session_id": session_id
     }
+
+
+@router.get("/")
+def get_sessions(
+    current_user=Depends(get_current_user)
+):
+
+    return get_user_sessions(
+        current_user["user_id"]
+    )

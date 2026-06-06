@@ -10,7 +10,7 @@ from backend.routes.session_routes import (
 from backend.routes.message_routes import (
     router as message_router
 )
-from backend.api.chat_routes import (
+from backend.routes.chat_routes import (
     router as chat_router
 )
 

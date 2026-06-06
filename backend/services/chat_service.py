@@ -1,44 +1,51 @@
-from backend.services.predictor import (
-    predict_disease
-)
+from backend.services.predictor import predict_disease
+from backend.services.symptom_extractor import extract_symptoms
+from backend.services.recommendation_service import get_specialist
 
-from backend.services.symptom_extractor import (
-    extract_symptoms
-)
-
-from backend.services.recommendation_service import (
-    get_specialist
+from backend.services.message_service import (
+    create_message
 )
 
 
-def process_chat_message(text: str):
+def process_chat_message(
+    session_id: str,
+    content: str
+):
 
-    symptoms = extract_symptoms(text)
+    create_message(
+        session_id=session_id,
+        role="user",
+        content=content
+    )
 
-    prediction_result = predict_disease(text)
+    symptoms = extract_symptoms(content)
+
+    prediction_result = predict_disease(content)
 
     disease = prediction_result["prediction"]
 
-    specialist = get_specialist(
-        disease
-    )
+    specialist = get_specialist(disease)
 
-    response = f"""
+    ai_response = f"""
 Possible Disease: {disease}
 
-Detected Symptoms:
+Symptoms:
 {', '.join(symptoms)}
 
 Recommended Specialist:
 {specialist}
 """
 
+    create_message(
+        session_id=session_id,
+        role="assistant",
+        content=ai_response
+    )
+
     return {
         "prediction": disease,
         "symptoms": symptoms,
         "specialist": specialist,
-        "response": response,
-        "top_predictions": prediction_result[
-            "top_predictions"
-        ]
+        "response": ai_response,
+        "top_predictions": prediction_result["top_predictions"]
     }
