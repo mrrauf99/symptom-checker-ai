@@ -1,0 +1,9 @@
+{
+  "Psoriasis": "Dermatologist",
+  "Arthritis": "Orthopedic Specialist",
+  "Dengue": "General Physician",
+  "Malaria": "General Physician",
+  "Pneumonia": "Pulmonologist",
+  "Chicken pox": "General Physician",
+  "Typhoid": "Gastroenterologist"
+}

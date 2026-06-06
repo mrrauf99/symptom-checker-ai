@@ -10,6 +10,9 @@ from backend.routes.session_routes import (
 from backend.routes.message_routes import (
     router as message_router
 )
+from backend.api.chat_routes import (
+    router as chat_router
+)
 
 
 app = FastAPI(
@@ -20,7 +23,7 @@ app.include_router(router)
 app.include_router(auth_router)
 app.include_router(session_router)
 app.include_router(message_router)
-
+app.include_router(chat_router)
 
 @app.get("/")
 def root():
