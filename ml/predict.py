@@ -1,4 +1,9 @@
+"""
+Interactive CLI for disease prediction.
+Loads the trained pipeline and accepts user input in a REPL loop.
+"""
 from pathlib import Path
+import re
 
 import joblib
 
@@ -7,6 +12,12 @@ MODEL_PATH = BASE_DIR / "models" / "disease_model.pkl"
 
 model = joblib.load(MODEL_PATH)
 
+
+def _preprocess(text: str) -> str:
+    """Normalise hyphens → spaces (mirrors train.py preprocessor)."""
+    return re.sub(r"\s+", " ", text.replace("-", " ")).strip()
+
+
 while True:
     symptom = input("\nDescribe symptoms (or type exit): ")
 
@@ -14,15 +25,12 @@ while True:
         break
 
     prediction = model.predict([symptom])[0]
-
     probabilities = model.predict_proba([symptom])[0]
-
     classes = model.classes_
 
-    results = list(zip(classes, probabilities))
-    results.sort(key=lambda x: x[1], reverse=True)
+    results = sorted(zip(classes, probabilities), key=lambda x: x[1], reverse=True)
 
-    print("\nTop Predictions:")
-
-    for disease, score in results[:3]:
-        print(f"{disease}: {score * 100:.2f}%")
+    print(f"\nTop Predictions:")
+    for disease, score in results[:5]:
+        bar = "█" * int(score * 40)
+        print(f"  {disease:<35} {score * 100:5.1f}%  {bar}")

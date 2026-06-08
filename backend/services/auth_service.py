@@ -60,7 +60,8 @@ def login_user(email, password):
 
     token = create_access_token({
         "user_id": str(user["_id"]),
-        "email": user["email"]
+        "email": user["email"],
+        "name": user["name"]
     })
 
     logger.info(f"User logged in: {email}")

@@ -1,9 +1,12 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from backend.schemas.prediction import PredictionRequest
 from backend.services.predictor import predict_disease
-from backend.services.history_service import save_prediction
-from backend.database.collections import predictions_collection
+from backend.services.history_service import (
+    save_prediction,
+    get_user_predictions
+)
+from backend.auth.dependencies import get_current_user
 
 router = APIRouter()
 
@@ -31,7 +34,9 @@ def predict(data: PredictionRequest):
     return {
         "input": data.text,
         "prediction": result["prediction"],
-        "top_predictions": result["top_predictions"]
+        "confidence": result["confidence"],
+        "confidence_level": result["confidence_level"],
+        "top_predictions": result["top_predictions"],
     }
 
 
@@ -40,22 +45,17 @@ def predict(data: PredictionRequest):
     summary="Get recent prediction history",
     description=(
         "Returns the 20 most recent disease predictions "
-        "stored in the database, sorted by newest first."
+        "for the authenticated user, sorted by newest first."
     ),
     tags=["History"]
 )
-def history():
+def history(
+    current_user=Depends(get_current_user)
+):
 
-    records = list(
-        predictions_collection.find(
-            {},
-            {"_id": 0}
-        )
-        .sort("created_at", -1)
-        .limit(20)
+    return get_user_predictions(
+        current_user["user_id"]
     )
-
-    return records
 
 
 @router.get(

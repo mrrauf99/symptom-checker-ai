@@ -32,5 +32,6 @@ def send_message(
 
     return process_chat_message(
         session_id=data.session_id,
-        content=data.content
+        content=data.content,
+        user_id=current_user["user_id"]
     )

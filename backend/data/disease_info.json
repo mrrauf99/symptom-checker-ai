@@ -1,0 +1,85 @@
+{
+  "Dengue": {
+    "specialist": "General Physician",
+    "description": "Dengue is a mosquito-borne viral infection transmitted by Aedes aegypti mosquitoes. It typically presents with fever, headache, muscle pain, and joint pain lasting 2-7 days.",
+    "advice": [
+      "Stay hydrated - drink plenty of water and electrolyte solutions",
+      "Get adequate rest to help your body fight the infection",
+      "Monitor fever regularly and use paracetamol if needed (avoid aspirin)",
+      "Use mosquito repellent and netting to prevent further transmission",
+      "Seek medical attention if symptoms worsen or don't improve within a week"
+    ]
+  },
+  "Pneumonia": {
+    "specialist": "Pulmonologist",
+    "description": "Pneumonia is an infection that inflames the air sacs in the lungs, causing them to fill with fluid or pus. It can be caused by bacteria, viruses, or fungi and ranges from mild to severe.",
+    "advice": [
+      "Seek immediate medical attention - this condition requires professional care",
+      "Rest adequately and avoid strenuous activities",
+      "Monitor breathing difficulties and chest pain closely",
+      "Take prescribed antibiotics as directed if bacterial pneumonia is confirmed",
+      "Stay hydrated and use a humidifier to ease breathing",
+      "Follow up with chest X-rays as recommended by your doctor"
+    ]
+  },
+  "Malaria": {
+    "specialist": "General Physician",
+    "description": "Malaria is a life-threatening mosquito-borne infectious disease caused by Plasmodium parasites. It's transmitted through the bite of infected Anopheles mosquitoes and causes recurring fever and chills.",
+    "advice": [
+      "Take prescribed antimalarial medication exactly as directed",
+      "Drink clean, filtered or boiled water to stay hydrated",
+      "Monitor fever patterns and report to your doctor if fever recurs",
+      "Use mosquito nets and repellents to prevent further infection",
+      "Complete the full course of medication even if symptoms improve",
+      "Avoid self-medication - always consult a healthcare provider"
+    ]
+  },
+  "Typhoid": {
+    "specialist": "Gastroenterologist",
+    "description": "Typhoid fever is a bacterial infection caused by Salmonella typhi, typically spread through contaminated water or food. It causes sustained high fever, weakness, and gastrointestinal symptoms.",
+    "advice": [
+      "Complete the full antibiotics course as prescribed by your doctor",
+      "Drink only clean, boiled or filtered water",
+      "Consume easily digestible foods like broth, rice, and plain foods",
+      "Rest completely during the acute phase of illness",
+      "Maintain good personal hygiene to prevent spreading infection",
+      "Get blood tests done as recommended for confirmation and monitoring"
+    ]
+  },
+  "Chicken pox": {
+    "specialist": "General Physician",
+    "description": "Chickenpox is a highly contagious viral infection caused by the varicella-zoster virus. It causes an itchy rash with blisters that progress through different stages of healing.",
+    "advice": [
+      "Avoid scratching blisters to prevent secondary bacterial infections",
+      "Keep the skin clean and use calamine lotion for itching relief",
+      "Stay hydrated and consume nutritious foods to support recovery",
+      "Get adequate rest - the infection typically lasts 5-10 days",
+      "Isolate from others to prevent transmission of the virus",
+      "Use paracetamol for fever (avoid aspirin in children)"
+    ]
+  },
+  "Psoriasis": {
+    "specialist": "Dermatologist",
+    "description": "Psoriasis is a chronic autoimmune skin condition characterized by rapid skin cell growth, causing thick, scaly patches that are often itchy and painful.",
+    "advice": [
+      "Keep skin well moisturized with appropriate creams or lotions",
+      "Identify and avoid personal triggers (stress, certain foods, skin irritants)",
+      "Maintain regular dermatologist appointments for treatment monitoring",
+      "Limit sun exposure and use protective clothing or sunscreen",
+      "Manage stress through relaxation techniques and exercise",
+      "Follow prescribed topical or systemic treatments consistently"
+    ]
+  },
+  "Arthritis": {
+    "specialist": "Orthopedic Specialist",
+    "description": "Arthritis causes inflammation and pain in joints, with over 100 different types. It can develop gradually and significantly impact mobility and quality of life.",
+    "advice": [
+      "Engage in gentle, low-impact exercises like swimming or walking",
+      "Maintain a healthy weight to reduce stress on joints",
+      "Apply heat or cold therapy as recommended for pain relief",
+      "Consult with an orthopedic specialist for personalized treatment",
+      "Take prescribed anti-inflammatory medications as directed",
+      "Consider physical therapy to improve joint flexibility and strength"
+    ]
+  }
+}

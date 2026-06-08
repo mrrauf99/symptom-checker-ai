@@ -1,0 +1,20 @@
+# Pyrefly configuration
+# https://github.com/facebook/pyrefly
+
+# Point to the Python interpreter that has all project dependencies installed.
+# This must match the interpreter used at runtime (Python 3.10 with scikit-learn,
+# joblib, fastapi, pymongo, etc. installed).
+python_interpreter = "C:/Users/RAUF/AppData/Local/Programs/Python/Python310/python.exe"
+
+# Project source roots - helps Pyrefly resolve backend.* imports correctly
+project_includes = ["backend", "ml", "tests"]
+
+# Exclude virtual envs and generated files from analysis
+project_excludes = [
+    ".venv",
+    ".git",
+    ".pytest_cache",
+    "__pycache__",
+    "models",
+    "logs",
+]
