@@ -1,0 +1,17 @@
+{
+  "greeting": [
+    "Hello! I am MediSense AI. How can I help you today? Please describe your symptoms.",
+    "Hi there! What symptoms are you experiencing today?",
+    "Greetings! I'm here to help. Could you please describe how you're feeling?"
+  ],
+  "farewell": [
+    "Goodbye! Take care and stay healthy.",
+    "Farewell! Feel free to return if you have more questions.",
+    "Bye! Wishing you good health."
+  ],
+  "thanks": [
+    "You're welcome! Let me know if you need anything else.",
+    "Happy to help! Stay healthy.",
+    "No problem at all! Please consult a doctor for a proper diagnosis."
+  ]
+}

@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 """Test script to debug session end operation"""
 
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from datetime import datetime
 from backend.database.collections import chat_sessions_collection
 from backend.services.session_service import create_session, end_session

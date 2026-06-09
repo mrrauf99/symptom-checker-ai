@@ -1,7 +1,4 @@
-"""
-Interactive CLI for disease prediction.
-Loads the trained pipeline and accepts user input in a REPL loop.
-"""
+"""Loads the trained pipeline and performs manual testing in terminal."""
 from pathlib import Path
 import re
 

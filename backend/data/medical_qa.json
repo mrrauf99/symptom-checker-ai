@@ -1,0 +1,14 @@
+[
+  {
+    "keywords": ["what is a fever", "fever definition"],
+    "answer": "A fever is a temporary increase in your body temperature, often due to an illness. It's a sign that your body is fighting off an infection."
+  },
+  {
+    "keywords": ["how to treat a cold", "cure for common cold"],
+    "answer": "There is no cure for the common cold, but you can relieve symptoms by getting plenty of rest, drinking fluids, and using over-the-counter cold medications. If symptoms persist or worsen, see a doctor."
+  },
+  {
+    "keywords": ["what causes headache", "why do i have a headache"],
+    "answer": "Headaches can be caused by many factors including stress, dehydration, lack of sleep, eye strain, sinus infections, or migraines."
+  }
+]

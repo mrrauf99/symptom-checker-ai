@@ -9,28 +9,6 @@ Each value list contains all alias phrases that map to that canonical name.
 Aliases are sorted longest-first so that multi-word phrases (e.g. "high fever")
 match before shorter overlapping ones (e.g. "fever").
 The module-level SYMPTOM_SYNONYMS constant is compiled once at import time.
-
-Changelog (v3):
-  - Split "wheezing" out of "shortness of breath" into its own canonical
-    (Asthma differentiator — wheezing is the hallmark of bronchial asthma)
-  - Split "chest tightness" out of "chest pain" into its own canonical
-    (Asthma differentiator — tightness ≠ sharp chest pain)
-  - Added canonical: "productive cough" (Pneumonia differentiator;
-    productive/mucus cough aliases moved from generic "cough")
-  - Added canonical: "recurring fever"  (Malaria differentiator;
-    cyclical/recurring/periodic fever patterns)
-  - Expanded: "silvery scales" — added flaky patches, scaling skin
-  - Expanded: "blisters"       — added itchy blisters, skin blisters
-
-Changelog (v2):
-  - Added canonical: "pain behind eyes"  (dengue differentiator)
-  - Added canonical: "blisters"          (chicken pox differentiator; split from "rash")
-  - Added canonical: "chest congestion"  (pneumonia differentiator)
-  - Added canonical: "silvery scales"    (psoriasis differentiator)
-  - Expanded: "cough"       — productive/phlegm/mucus aliases
-  - Expanded: "muscle pain" — body aches / aches all over
-  - Expanded: "joint pain"  — joint stiffness / morning stiffness
-  - Removed "blisters"/"blister" from "rash" to avoid Chicken Pox ↔ Impetigo/Psoriasis conflation
 """
 
 from __future__ import annotations
@@ -345,11 +323,33 @@ def extract_symptoms(text: str) -> List[str]:
     Returns:
         Ordered list of unique canonical symptom names found in the text.
     """
+    def normalize_symptom_text(t: str) -> str:
+        t = t.lower()
+        replacements = {
+            r"\bhurts\b": "pain",
+            r"\bhurt\b": "pain",
+            r"\baching\b": "ache",
+            r"\baches\b": "ache",
+            r"\bthrow up\b": "vomit",
+            r"\bthrowing up\b": "vomiting",
+            r"\bpuking\b": "vomiting",
+            r"\bpuke\b": "vomit",
+            r"\bqueasy\b": "nauseous",
+            r"\bspinning\b": "dizzy",
+            r"\bpain in my chest\b": "pain in chest",
+            r"\bpain in the chest\b": "pain in chest",
+        }
+        for pat, repl in replacements.items():
+            t = re.sub(pat, repl, t)
+        return t
+
     found: List[str] = []
     seen: Set[str] = set()
 
+    normalized_text = normalize_symptom_text(text)
+
     for pattern, canonical in _COMPILED_PATTERNS:
-        if pattern.search(text) and canonical not in seen:
+        if pattern.search(normalized_text) and canonical not in seen:
             found.append(canonical)
             seen.add(canonical)
 

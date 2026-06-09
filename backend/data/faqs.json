@@ -1,0 +1,18 @@
+[
+  {
+    "keywords": ["who are you", "what are you", "what is this"],
+    "answer": "I am MediSense AI, an advanced symptom checker. I can help predict potential medical conditions based on the symptoms you describe, but I am not a replacement for a professional doctor."
+  },
+  {
+    "keywords": ["what do you do", "how does this work", "how to use"],
+    "answer": "You can tell me how you are feeling and describe your symptoms in detail (e.g., 'I have a high fever and a severe headache'). I will analyze your symptoms and suggest possible medical conditions, along with recommended specialists and general advice."
+  },
+  {
+    "keywords": ["are you a doctor", "can you diagnose me"],
+    "answer": "No, I am an AI, not a doctor. I provide predictions based on statistical patterns. Any information I give should be used for educational purposes only and not as a medical diagnosis. Please consult a qualified healthcare professional."
+  },
+  {
+    "keywords": ["tell me a joke"],
+    "answer": "Why did the doctor carry a red pen? In case they needed to draw blood! (But seriously, I'm better at checking symptoms than telling jokes.)"
+  }
+]

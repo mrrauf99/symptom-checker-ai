@@ -1,0 +1,24 @@
+{
+  "greeting": [
+    "hi", "hello", "hey", "greetings", "good morning", "good afternoon",
+    "good evening", "what's up", "whats up", "howdy", "how are you",
+    "how's it going", "hiya"
+  ],
+  "farewell": [
+    "bye", "goodbye", "see you", "later", "cya", "take care",
+    "farewell", "catch you later", "see ya"
+  ],
+  "thanks": [
+    "thank you", "thanks", "thx", "appreciate it", "thank u",
+    "much obliged", "thanks a lot"
+  ],
+  "faq": [
+    "who are you", "what are you", "what is this", "what do you do",
+    "how does this work", "how to use", "are you a doctor",
+    "can you diagnose me", "who created you", "tell me a joke"
+  ],
+  "medical_qa": [
+    "what is", "how to cure", "how to treat", "what causes",
+    "symptoms of", "is it contagious", "prevention of"
+  ]
+}

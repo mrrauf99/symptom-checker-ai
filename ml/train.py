@@ -1,20 +1,3 @@
-"""
-ML Training Pipeline — v3
-=========================
-Changes from v2:
-  - TF-IDF: trigrams (1,3), max_features=15000, min_df=1 (was 2),
-    captures terse clinical phrases better
-  - Classifier: class_weight='balanced' on LogisticRegression
-  - Text preprocessor v2: phrase preservation, lowercasing, punctuation removal
-  - Model comparison: added balanced variants for LogReg and LinearSVC
-
-Changes from v1:
-  - Added _preprocess() text normaliser
-  - TF-IDF: bigrams (1,2), sublinear_tf=True, max_features=10000, min_df=2
-  - Classifier: CalibratedClassifierCV wrapping LogisticRegression(C=5.0)
-  - Reports: accuracy, macro F1, full classification_report
-"""
-
 from pathlib import Path
 
 import pandas as pd
@@ -44,7 +27,7 @@ BASE_DIR_STR = str(Path(__file__).resolve().parent.parent)
 if BASE_DIR_STR not in sys.path:
     sys.path.insert(0, BASE_DIR_STR)
 
-from text_preprocessor import preprocess_text
+from ml.text_preprocessor import preprocess_text
 
 
 # ---------------------------------------------------------------------------

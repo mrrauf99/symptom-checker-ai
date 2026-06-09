@@ -1,15 +1,12 @@
 """
 Recommendation Service
-======================
+
 Provides specialist recommendation for a predicted disease.
 
 Source of truth priority:
   1. disease_info.json (specialist field, loaded by disease_info_service)
   2. specialists.json  (fallback flat lookup)
   3. "General Physician" (final default)
-
-The JSON file is loaded lazily and cached — no disk read on every call,
-and no import-time crash if the file is missing.
 """
 
 from __future__ import annotations

@@ -1,15 +1,34 @@
+"""Purpose:
+
+Compare predictions
+
+Example:
+
+Pneumonia Case
+
+Check:
+
+Base Model
+vs
+Boosted Model
+
+Output:
+
+Base:
+Pneumonia 61%
+
+Boosted:
+Pneumonia 91%
+
+Used for verification."""
+
 import sys
-import os
 from pathlib import Path
-import pandas as pd
-from sklearn.metrics import confusion_matrix, classification_report
-import numpy as np
 
 # Setup path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from backend.services.predictor import predict_disease, _model
-from backend.services.symptom_extractor import extract_symptoms
 
 _problem_cases = {
     "CASE 1 — Pneumonia": (

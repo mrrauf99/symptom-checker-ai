@@ -30,6 +30,10 @@ from backend.services.message_service import create_message
 from backend.services.history_service import save_prediction
 from backend.utils.logger import logger
 
+from backend.services.intent_service import detect_intent, get_greeting_response
+from backend.services.faq_service import get_faq_answer
+from backend.services.medical_qa_service import get_medical_qa_answer
+
 
 def process_chat_message(
     session_id: str,
@@ -68,6 +72,51 @@ def process_chat_message(
         content=content
     )
 
+    # 1.5 - Detect Intent and handle non-symptom flows
+    intent = detect_intent(content)
+    logger.info(f"Detected intent: {intent} for message: '{content}'")
+
+    if intent in ["greeting", "farewell", "thanks"]:
+        ai_response = get_greeting_response(intent)
+        payload = {"type": "greeting", "message": ai_response}
+        create_message(
+            session_id=session_id,
+            role="assistant",
+            content=ai_response,
+            prediction_data=payload
+        )
+        return payload
+
+    elif intent == "faq":
+        ai_response = get_faq_answer(content)
+        if not ai_response:
+            ai_response = "I'm not sure how to answer that question. I'm a symptom checker AI. Please describe your symptoms."
+            payload = {"type": "invalid_input", "message": ai_response}
+        else:
+            payload = {"type": "faq", "message": ai_response}
+        create_message(
+            session_id=session_id,
+            role="assistant",
+            content=ai_response,
+            prediction_data=payload
+        )
+        return payload
+
+    elif intent == "medical_qa":
+        ai_response = get_medical_qa_answer(content)
+        if not ai_response:
+            ai_response = "I'm a symptom checker AI. Please describe your symptoms so I can help predict potential conditions."
+            payload = {"type": "invalid_input", "message": ai_response}
+        else:
+            payload = {"type": "faq", "message": ai_response}
+        create_message(
+            session_id=session_id,
+            role="assistant",
+            content=ai_response,
+            prediction_data=payload
+        )
+        return payload
+
     # 2 — Extract symptoms
     symptoms = extract_symptoms(content)
     logger.info(f"Symptoms extracted: {symptoms}")
@@ -89,31 +138,41 @@ def process_chat_message(
     advice_list = get_disease_advice(disease)
 
     # 5 — Generate rich AI response
-    ai_response = _generate_rich_response(
-        disease=disease,
-        confidence=confidence,
-        confidence_level=confidence_level,
-        symptoms=symptoms,
-        description=description,
-        specialist=specialist,
-        advice_list=advice_list
-    )
+    if confidence < 70.0:
+        symptoms_str = ', '.join(symptoms) if symptoms else 'those described'
+        ai_response = (
+            f"I detected some symptoms like {symptoms_str}, but I need more details "
+            "to make a reliable prediction. Could you please describe your symptoms in more detail?"
+        )
+    else:
+        ai_response = _generate_rich_response(
+            disease=disease,
+            confidence=confidence,
+            confidence_level=confidence_level,
+            symptoms=symptoms,
+            description=description,
+            specialist=specialist,
+            advice_list=advice_list
+        )
 
     # 6 — Store AI response
+    prediction_data = {
+        "type": "prediction",
+        "prediction": disease,
+        "confidence": confidence,
+        "confidence_level": confidence_level,
+        "symptoms": symptoms,
+        "specialist": specialist,
+        "description": description,
+        "advice": advice_list,
+        "top_predictions": prediction_result["top_predictions"]
+    }
+    
     create_message(
         session_id=session_id,
         role="assistant",
         content=ai_response,
-        prediction_data={
-            "prediction": disease,
-            "confidence": confidence,
-            "confidence_level": confidence_level,
-            "symptoms": symptoms,
-            "specialist": specialist,
-            "description": description,
-            "advice": advice_list,
-            "top_predictions": prediction_result["top_predictions"]
-        }
+        prediction_data=prediction_data
     )
 
     # 7 — Save prediction to history
@@ -127,17 +186,9 @@ def process_chat_message(
     logger.info(f"Chat message processed successfully for session {session_id}")
 
     # 8 — Return complete payload
-    return {
-        "prediction": disease,
-        "confidence": confidence,
-        "confidence_level": confidence_level,
-        "symptoms": symptoms,
-        "specialist": specialist,
-        "description": description,
-        "advice": advice_list,
-        "response": ai_response,
-        "top_predictions": prediction_result["top_predictions"],
-    }
+    response_payload = prediction_data.copy()
+    response_payload["message"] = ai_response
+    return response_payload
 
 
 def _generate_rich_response(

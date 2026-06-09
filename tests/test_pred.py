@@ -1,3 +1,7 @@
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import numpy as np
 from backend.services.symptom_extractor import extract_symptoms
 from backend.services.predictor import _model, _apply_symptom_boost, predict_disease

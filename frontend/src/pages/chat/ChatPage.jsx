@@ -43,7 +43,7 @@ function Message({ msg }) {
             {msg.content}
           </div>
         ) : // AI response - use new prediction response component if we have prediction data
-        msg.prediction_data ? (
+        msg.prediction_data && msg.prediction_data.type === "prediction" ? (
           <PredictionResponse data={msg.prediction_data} />
         ) : (
           // Fallback to simple text if no prediction data
@@ -247,7 +247,7 @@ export default function ChatPage() {
       const aiMsg = {
         id: Date.now() + 1,
         role: "assistant",
-        content: res.response,
+        content: res.message || res.response,
         prediction_data: res,
       };
       setMessages((prev) => [...prev, aiMsg]);

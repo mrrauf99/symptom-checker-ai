@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 """Debug script to check sessions in the database"""
 
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from backend.database.collections import chat_sessions_collection, users_collection
 from pprint import pprint
 

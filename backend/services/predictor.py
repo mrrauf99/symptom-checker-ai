@@ -1,8 +1,18 @@
 """
-Disease Prediction Service
-==========================
-Loads the trained sklearn Pipeline once at startup (module-level singleton)
-and exposes a single public function: predict_disease().
+Purpose:
+
+Main prediction engine
+
+Responsibilities:
+
+Load model
+joblib.load(...)
+Extract symptoms
+extract_symptoms(...)
+Get probabilities
+predict_proba(...)
+Apply boosting
+_apply_symptom_boost(...)
 
 Confidence levels:
   >= 70  → High
@@ -16,18 +26,6 @@ Response fields (all backward-compatible):
   top_predictions   list  — top-3 dicts with disease, confidence, confidence_level
   symptoms          list  — canonical symptom names extracted from the input text
   specialist        str   — recommended medical specialist for the predicted disease
-
-Changelog (v3):
-  - Added symptom-based boosting layer: adjusts ML probabilities based on
-    extracted symptom patterns to bridge the gap between terse user input
-    and the model's training distribution.
-  - Boosting is a lightweight ranking adjustment, NOT a hardcoded override.
-  - All existing fields and API contracts are preserved (backward compatible).
-
-Changelog (v2):
-  - predict_disease() now returns "symptoms" and "specialist" fields.
-    These are additive (backward-compatible): no existing field was modified.
-  - Imports extract_symptoms and get_specialist lazily to avoid circular imports.
 """
 
 from __future__ import annotations
